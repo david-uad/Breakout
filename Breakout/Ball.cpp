@@ -1,5 +1,6 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
+#include <iostream>
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
@@ -90,11 +91,36 @@ void Ball::update(float dt)
     {
         _direction.y *= -1; // Bounce vertically
     }
+
+    // Add sprites to trail
+    if (_trailSprites.size() < _trailLength)
+    {
+        _trailSprites.push_back(sf::CircleShape());
+        _trailSprites.back().setFillColor(_sprite.getFillColor());
+        _trailSprites.back().setRadius(RADIUS);
+        _trailSprites.back().setPosition(_sprite.getPosition());
+    }
+    else
+    {
+        // remove the oldest sprite from the trail
+        _trailSprites.pop_front();
+    }
 }
 
 void Ball::render()
 {
     _window->draw(_sprite);
+    // colour and draw trail vfx
+    int pos = 0;
+    for (auto& it : _trailSprites)
+    {
+        float alpha = 16 * (float(pos) / float(_trailLength));
+        sf::Color color = it.getFillColor();
+        it.setFillColor(sf::Color(color.r, color.g, color.b, alpha));
+        //std::cout << "Alpha : " << alpha << std::endl;
+        _window->draw(it);
+        pos++;
+    }
 }
 
 void Ball::setVelocity(float coeff, float duration)
