@@ -14,6 +14,7 @@ public:
 	~UI();
 
 	void updatePowerupText(std::pair<POWERUPS, float>);
+	void updatePowerupUI(std::pair<POWERUPS, float>);
 	void lifeLost(int lives);
 	void render();
 
@@ -23,10 +24,13 @@ private:
 	sf::RenderWindow* _window;
 	sf::Font _font;
 	sf::Text _powerupText;
+	sf::RectangleShape _powerupBar;
 
 	std::vector<sf::CircleShape> _lives;
 
 	static constexpr float LIFE_RADIUS = 15.0f;
 	static constexpr float LIFE_PADDING = 20.0f;
+	static constexpr float POWERUP_BAR_WIDTH = 160.0f;
+	static constexpr float POWERUP_BAR_HEIGHT = 20.0f;
 };
 

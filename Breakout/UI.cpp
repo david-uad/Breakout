@@ -20,6 +20,11 @@ UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
 	_powerupText.setCharacterSize(30);
 	_powerupText.setPosition(800, 10);
 	_powerupText.setFillColor(sf::Color::Cyan);
+
+	_powerupBar.setPosition(800, 60);
+	_powerupBar.setFillColor(sf::Color::Cyan);
+	_powerupBar.setSize(sf::Vector2f(POWERUP_BAR_WIDTH, POWERUP_BAR_HEIGHT));
+
 	_font.loadFromFile("font/montS.ttf");
 	_powerupText.setFont(_font);
 }
@@ -67,6 +72,48 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 	}
 }
 
+void UI::updatePowerupUI(std::pair<POWERUPS, float> powerup)
+{
+	float percent = powerup.second / 5.0f;
+	float width = POWERUP_BAR_WIDTH * percent;
+	_powerupBar.setSize(sf::Vector2f(width, POWERUP_BAR_HEIGHT));
+
+	switch (powerup.first)
+	{
+	case bigPaddle:
+		_powerupText.setString("big ");
+		_powerupText.setFillColor(paddleEffectsColour);
+		_powerupBar.setFillColor(paddleEffectsColour);
+		break;
+	case smallPaddle:
+		_powerupText.setString("small ");
+		_powerupText.setFillColor(paddleEffectsColour);
+		_powerupBar.setFillColor(paddleEffectsColour);
+		break;
+	case slowBall:
+		_powerupText.setString("slow ");
+		_powerupText.setFillColor(ballEffectsColour);
+		_powerupBar.setFillColor(ballEffectsColour);
+
+		break;
+	case fastBall:
+		_powerupText.setString("fast ");
+		_powerupText.setFillColor(ballEffectsColour);
+		_powerupBar.setFillColor(ballEffectsColour);
+		break;
+	case fireBall:
+		_powerupText.setString("fire ");
+		_powerupText.setFillColor(extraBallEffectsColour);
+		_powerupBar.setFillColor(extraBallEffectsColour);
+		break;
+	case none:
+		_powerupText.setString("");
+		_powerupBar.setFillColor(sf::Color::Transparent);
+
+		break;
+	}
+}
+
 void UI::lifeLost(int lives)
 {
 	_lives[_lives.size() - 1 - lives].setFillColor(sf::Color::Transparent);
@@ -79,4 +126,6 @@ void UI::render()
 	{
 		_window->draw(life);
 	}
+
+	_window->draw(_powerupBar);
 }

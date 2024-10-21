@@ -80,18 +80,6 @@ void Ball::update(float dt)
         _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
     }
 
-    // collision with bricks
-    int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
-    if (_isFireBall) return; // no collisisons when in fireBall mode.
-    if (collisionResponse == 1)
-    {
-        _direction.x *= -1; // Bounce horizontally
-    }
-    else if (collisionResponse == 2)
-    {
-        _direction.y *= -1; // Bounce vertically
-    }
-
     // Add sprites to trail
     if (_trailSprites.size() < _trailLength)
     {
@@ -105,19 +93,35 @@ void Ball::update(float dt)
         // remove the oldest sprite from the trail
         _trailSprites.pop_front();
     }
+
+    // collision with bricks
+    int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
+    if (_isFireBall) return; // no collisisons when in fireBall mode.
+    if (collisionResponse == 1)
+    {
+        _direction.x *= -1; // Bounce horizontally
+    }
+    else if (collisionResponse == 2)
+    {
+        _direction.y *= -1; // Bounce vertically
+    }
+
+    
 }
 
 void Ball::render()
 {
     _window->draw(_sprite);
+
     // colour and draw trail vfx
     int pos = 0;
     for (auto& it : _trailSprites)
     {
+        // Calculate how old the sprite is based on its position in the list
         float alpha = 16 * (float(pos) / float(_trailLength));
         sf::Color color = it.getFillColor();
+        // Get the current fill colour and set the alpha channel based on the age
         it.setFillColor(sf::Color(color.r, color.g, color.b, alpha));
-        //std::cout << "Alpha : " << alpha << std::endl;
         _window->draw(it);
         pos++;
     }
