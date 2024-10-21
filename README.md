@@ -35,4 +35,5 @@ fire ball (green)
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
  * Compilation issues solved, time taken ~15 minutes
  * Implemented mouse input for paddle, time taken ~30 minutes
- * Implemented trail VFX for the ball , time taken ~45 minutes
+ * Implemented trail VFX for the ball, time taken ~45 minutes
+ * Implemented progress bar for powerups, time taken ~65 minutes
