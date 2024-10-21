@@ -78,8 +78,19 @@ void GameManager::update(float dt)
     }
 
     // move paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+
+    /*if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        std::cout << "Mouse pos: " << << "Pad right: " << _paddle->getBounds().left + _paddle->getBounds().width << std::endl;
+
+    }*/
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || // If D key pressed OR (left mouse pressed AND mouse x pos > right of paddle)
+        (sf::Mouse::isButtonPressed(sf::Mouse::Left) && ((sf::Mouse::getPosition().x - _window->getPosition().x) > (_paddle->getBounds().left + _paddle->getBounds().width)))
+        ) _paddle->moveRight(dt); // Move right
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || // if DA key pressed OR (left mouse pressed AND mouse x pos < left of paddle)
+        (sf::Mouse::isButtonPressed(sf::Mouse::Left) && ((sf::Mouse::getPosition().x - _window->getPosition().x) < _paddle->getBounds().left))
+        ) _paddle->moveLeft(dt); // Move left
 
     // update everything 
     _paddle->update(dt);

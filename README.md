@@ -34,3 +34,4 @@ fire ball (green)
 # Time Details and Changelist
 <Add information to this section about the time you've taken for this task along with a professional changelist.>
  * Compilation issues solved, time taken ~15 minutes
+ * Implemented mouse input for paddle, time taken ~30 minutes
