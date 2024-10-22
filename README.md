@@ -5,7 +5,9 @@ W Kavanagh. June Summer 2024
 ## controls
 
 A/D to move the paddle right and left.
+Mouse left button to move paddle towards mouse.
 P to pause.
+Enter to restart on game complete/over.
 
 ## Powerups
 
@@ -32,8 +34,9 @@ fire ball (green)
 * Implement commentary with calls to an LLM such as LLama
 
 # Time Details and Changelist
-<Add information to this section about the time you've taken for this task along with a professional changelist.>
+
  * Compilation issues solved, time taken ~15 minutes
  * Implemented mouse input for paddle, time taken ~30 minutes
  * Implemented trail VFX for the ball, time taken ~45 minutes
  * Implemented progress bar for powerups, time taken ~65 minutes
+ * Implemented simple game loop, timwe taken ~ 35 minutes
