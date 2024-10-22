@@ -94,6 +94,12 @@ void PowerupManager::checkCollision()
     }
 }
 
+void PowerupManager::reset()
+{
+    _powerupInEffect.reset();
+    _powerups.clear();
+}
+
 int PowerupManager::getPowerupsSpawned()
 {
     return _powerups.size();

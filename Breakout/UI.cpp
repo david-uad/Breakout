@@ -129,3 +129,11 @@ void UI::render()
 
 	_window->draw(_powerupBar);
 }
+
+void UI::reset()
+{
+	for (auto& life : _lives)
+	{
+		life.setFillColor(sf::Color::Red);
+	}
+}

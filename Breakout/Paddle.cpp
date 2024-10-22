@@ -33,6 +33,12 @@ void Paddle::moveRight(float dt)
     }
 }
 
+void Paddle::reset()
+{
+    _sprite.setPosition((_window->getSize().x - _width) / 2.0f, _window->getSize().y - 50.0f);
+    _timeInNewSize = 0;
+}
+
 void Paddle::update(float dt)
 {
     if (_timeInNewSize > 0)

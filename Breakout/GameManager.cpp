@@ -37,12 +37,25 @@ void GameManager::update(float dt)
 
     if (_lives <= 0)
     {
-        _masterText.setString("Game over.");
+        _masterText.setString("Game over. Press enter to restart");
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        {
+            _lives = 3;
+            reset();
+        }
+
         return;
     }
     if (_levelComplete)
     {
-        _masterText.setString("Level completed.");
+        _masterText.setString("Level completed. Press enter to restart");
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        {
+            _levelComplete = false;
+            reset();
+        }
         return;
     }
     // pause and pause handling
@@ -119,6 +132,18 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::reset()
+{
+    _masterText.setString("");
+    _brickManager->reset(5, 10, 80.0f, 30.0f, 5.0f);
+    _ui->reset();
+    _ball->reset();
+    _paddle->reset();
+    _powerupManager->reset();
+    _timeLastPowerupSpawned = 0.f;
+    _time = 0.f;
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }

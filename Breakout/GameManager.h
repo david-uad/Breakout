@@ -18,6 +18,7 @@ public:
     void loseLife();
     void render();
     void levelComplete();
+    void reset();
     void powerupEffect(POWERUPS pu, float t);
 
     Paddle* getPaddle() const;
